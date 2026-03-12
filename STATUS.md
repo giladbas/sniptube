@@ -10,12 +10,15 @@ A YouTube video downloader & MP3 converter web app. Users paste a YouTube URL, c
 - **Containerized:** Dockerfile included (Node 20 slim + ffmpeg + yt-dlp)
 
 ## Domain
-- Chose **sniptube.live** — not yet purchased/registered
-- All URLs in the codebase point to `https://sniptube.live/`
+- **sniptube.live** — purchased via Squarespace
+- DNS managed by **Cloudflare** (nameservers: `alaric.ns.cloudflare.com`, `june.ns.cloudflare.com`)
+- CNAME `@` → `ijy5se7j.up.railway.app` (DNS only / grey cloud)
+- TXT `_railway-verify` → verification record added
+- **Status as of 2026-03-12:** Railway shows "Waiting for DNS update" — SSL cert pending. Should resolve within 30 min.
 
 ## GitHub Repo
 - Pushed to: **https://github.com/giladbas/sniptube**
-- Branch: `main`, 2 commits
+- Branch: `main`
 
 ## What's Done
 
@@ -47,24 +50,23 @@ A YouTube video downloader & MP3 converter web app. Users paste a YouTube URL, c
 
 All slots use Google AdSense `<ins class="adsbygoogle">` tags with placeholder IDs.
 
-### Deployment Prep
-- Dockerfile created (Node 20 slim, installs ffmpeg + yt-dlp)
-- Server uses `process.env.PORT || 3000` for Railway/Render compatibility
+### Deployment
+- Dockerfile created (Node 20 slim, installs ca-certificates + ffmpeg + yt-dlp)
+- Deployed to Railway (paid plan)
+- Live at: **https://zoological-prosperity-production-0c0b.up.railway.app**
+- Server uses `process.env.PORT || 3000` for Railway compatibility
 - `.gitignore` set up (node_modules, downloads, .DS_Store)
 
-## What's NOT Done
+### OG Image
+- Created `public/og-image.png` (1200x630px) — dark theme with SnipTube branding, play button, feature pills
 
-### 1. Buy the domain
-- Purchase `sniptube.live` from any registrar (Namecheap, Cloudflare, Google Domains)
+## What's NOT Done (requires your action)
 
-### 2. Deploy the app
-- Railway trial expired — needs paid plan ($5/mo) OR use a free alternative:
-  - **Render** (750 free hrs/month, supports Docker) — recommended
-  - **Fly.io** (3 free shared VMs)
-  - **Koyeb** (1 free nano instance)
-- Cannot use Cloudflare Workers/Pages — app needs yt-dlp and ffmpeg binaries
+### 1. Verify domain is live
+- Railway SSL cert was pending as of 2026-03-12 evening — check https://sniptube.live tomorrow
+- If still not working, check Railway dashboard → service → Settings → Domains for status
 
-### 3. Google AdSense setup
+### 2. Google AdSense setup
 - Sign up at https://adsense.google.com with your domain
 - Get your publisher ID (`ca-pub-XXXXXXXXXXXXXXXX`)
 - Replace ALL occurrences of `ca-pub-XXXXXXXXXXXXXXXX` in `public/index.html` (appears in 7 places: 1 in the script tag + 6 ad slots)
@@ -81,13 +83,6 @@ All slots use Google AdSense `<ins class="adsbygoogle">` tags with placeholder I
 - Verify domain ownership
 - Submit sitemap: `https://sniptube.live/sitemap.xml`
 
-### 5. Create OG image
-- Create a 1200x630px image for social sharing
-- Save as `public/og-image.png`
-
-### 6. Point domain to deployment
-- After deploying, configure DNS for `sniptube.live` to point to your hosting provider
-
 ## File Structure
 ```
 ├── .gitignore
@@ -97,6 +92,7 @@ All slots use Google AdSense `<ins class="adsbygoogle">` tags with placeholder I
 ├── server.js              (Express API: /api/info, /api/download)
 ├── public/
 │   ├── index.html         (Full app UI + SEO + ads)
+│   ├── og-image.png       (1200x630 OG image for social sharing)
 │   ├── robots.txt
 │   └── sitemap.xml
 └── STATUS.md              (this file)
