@@ -56,6 +56,13 @@ function sanitizeFilename(name) {
   return name.replace(/[^a-zA-Z0-9 _\-\.]/g, '').substring(0, 100);
 }
 
+// Global yt-dlp args: use iOS client to reduce bot detection, and cookies if available
+const COOKIES_PATH = path.join(__dirname, 'cookies.txt');
+const ytDlpGlobalArgs = [
+  '--extractor-args', 'youtube:player_client=ios,web_creator',
+  ...(fs.existsSync(COOKIES_PATH) ? ['--cookies', COOKIES_PATH] : []),
+];
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -67,7 +74,7 @@ app.post('/api/info', async (req, res) => {
   }
 
   try {
-    const output = await run('yt-dlp', ['--dump-json', '--no-playlist', url]);
+    const output = await run('yt-dlp', [...ytDlpGlobalArgs, '--dump-json', '--no-playlist', url]);
     const info = JSON.parse(output);
     res.json({
       title: info.title,
@@ -97,7 +104,7 @@ app.post('/api/download', async (req, res) => {
 
   try {
     // Step 1: Get video info for filename
-    const infoOutput = await run('yt-dlp', ['--dump-json', '--no-playlist', url]);
+    const infoOutput = await run('yt-dlp', [...ytDlpGlobalArgs, '--dump-json', '--no-playlist', url]);
     const info = JSON.parse(infoOutput);
     const safeTitle = sanitizeFilename(info.title) || 'video';
 
@@ -105,8 +112,8 @@ app.post('/api/download', async (req, res) => {
     const rawFile = path.join(jobDir, 'raw.%(ext)s');
     const dlArgs =
       format === 'mp3'
-        ? ['-f', 'bestaudio', '-o', rawFile, '--no-playlist', url]
-        : ['-f', 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]', '-o', rawFile, '--no-playlist', '--merge-output-format', 'mp4', url];
+        ? [...ytDlpGlobalArgs, '-f', 'bestaudio', '-o', rawFile, '--no-playlist', url]
+        : [...ytDlpGlobalArgs, '-f', 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]', '-o', rawFile, '--no-playlist', '--merge-output-format', 'mp4', url];
 
     await run('yt-dlp', dlArgs);
 
