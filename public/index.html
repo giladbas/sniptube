@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <title>SnipTube - Free YouTube Video Downloader & MP3 Converter Online</title>
+  <meta name="description" content="Download YouTube videos to MP4 or convert to MP3 for free. Trim and cut YouTube videos online. Fast, free, no signup required. The best YouTube downloader in 2026.">
+  <meta name="keywords" content="youtube downloader, youtube to mp3, youtube to mp4, download youtube video, youtube converter, youtube mp3 converter, free youtube downloader, youtube video downloader, trim youtube video, cut youtube video, youtube clipper, yt to mp3, yt downloader">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="SnipTube">
+  <link rel="canonical" href="https://sniptube.live/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SnipTube - Free YouTube Video Downloader & MP3 Converter">
+  <meta property="og:description" content="Download and trim YouTube videos to MP4 or MP3 for free. No signup, no limits.">
+  <meta property="og:url" content="https://sniptube.live/">
+  <meta property="og:site_name" content="SnipTube">
+  <meta property="og:image" content="https://sniptube.live/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SnipTube - Free YouTube Video Downloader & MP3 Converter">
+  <meta name="twitter:description" content="Download and trim YouTube videos to MP4 or MP3 for free. No signup, no limits.">
+  <meta name="twitter:image" content="https://sniptube.live/og-image.png">
+
+  <!-- Structured Data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SnipTube",
+    "url": "https://sniptube.live",
+    "description": "Free online YouTube video downloader and MP3 converter with trimming support",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Download YouTube videos as MP4",
+      "Convert YouTube videos to MP3",
+      "Trim and cut videos by time range",
+      "No signup required",
+      "Free to use"
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I download a YouTube video?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply paste the YouTube video URL into SnipTube, choose MP4 or MP3 format, optionally set trim times, and click Download. Your file will be ready in seconds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is SnipTube free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, SnipTube is completely free. No signup, no subscription, no hidden fees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert YouTube videos to MP3?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Select the MP3 format option and SnipTube will extract high-quality 192kbps audio from any YouTube video."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I trim or cut a YouTube video before downloading?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Use the built-in trim controls to set a start and end time. Only the selected portion will be downloaded."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What video formats are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SnipTube supports MP4 for video downloads and MP3 for audio-only downloads."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google AdSense -->
+  <!-- Replace ca-pub-XXXXXXXXXXXXXXXX with your AdSense publisher ID -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e1e1e1;
+      min-height: 100vh;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px 40px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 640px;
+    }
+
+    /* --- Ad Styles --- */
+    .ad-container {
+      width: 100%;
+      max-width: 728px;
+      margin: 16px auto;
+      text-align: center;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .ad-container.ad-rectangle {
+      max-width: 640px;
+      min-height: 250px;
+    }
+
+    .ad-container.ad-sticky-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 100%;
+      border-radius: 0;
+      z-index: 1000;
+      min-height: 50px;
+      background: #111;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .ad-label {
+      font-size: 0.65rem;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* --- Download Overlay Ad --- */
+    .download-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .download-overlay.visible { display: flex; }
+
+    .download-overlay .overlay-content {
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .download-overlay h3 {
+      color: #fff;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .download-overlay .countdown {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .download-overlay .overlay-ad {
+      min-height: 250px;
+      background: #111;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .download-overlay .btn-skip {
+      padding: 10px 28px;
+      border: 2px solid #333;
+      border-radius: 8px;
+      background: transparent;
+      color: #888;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .download-overlay .btn-skip:hover {
+      border-color: #ff4444;
+      color: #fff;
+    }
+
+    .download-overlay .btn-skip:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    /* --- Header --- */
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    header h1 span { color: #ff4444; }
+
+    header p {
+      color: #888;
+      margin-top: 4px;
+      font-size: 0.9rem;
+    }
+
+    /* --- Input --- */
+    .input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .input-group input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #2a2a2a;
+      border-radius: 10px;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-group input:focus { border-color: #ff4444; }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #ff4444;
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: #e63939; }
+    .btn-primary:disabled { background: #555; cursor: not-allowed; }
+
+    .panel {
+      margin-top: 24px;
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 20px;
+      display: none;
+    }
+
+    .panel.visible { display: block; }
+
+    .player-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .player-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .video-details {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .video-details h3 {
+      font-size: 0.95rem;
+      color: #fff;
+      line-height: 1.4;
+      flex: 1;
+      margin-right: 12px;
+    }
+
+    .video-details p {
+      color: #888;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .set-trim-btns {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn-set {
+      padding: 6px 14px;
+      border: 2px solid #2a2a2a;
+      border-radius: 8px;
+      background: #0f0f0f;
+      color: #ccc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-set:hover {
+      border-color: #ff4444;
+      color: #fff;
+    }
+
+    .controls { margin-top: 20px; }
+
+    .control-row {
+      margin-bottom: 16px;
+    }
+
+    .control-row label {
+      display: block;
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .format-toggle {
+      display: flex;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid #2a2a2a;
+    }
+
+    .format-toggle button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: #1a1a1a;
+      color: #888;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .format-toggle button.active {
+      background: #ff4444;
+      color: #fff;
+    }
+
+    .trim-inputs {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .trim-inputs input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 2px solid #2a2a2a;
+      border-radius: 8px;
+      background: #0f0f0f;
+      color: #fff;
+      font-size: 0.95rem;
+      text-align: center;
+      outline: none;
+      font-family: monospace;
+    }
+
+    .trim-inputs input:focus { border-color: #ff4444; }
+
+    .trim-inputs .separator {
+      color: #555;
+      font-weight: 600;
+    }
+
+    .download-btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      font-size: 1.05rem;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .status.visible { display: block; }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #333;
+      border-top-color: #ff4444;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error {
+      color: #ff6b6b;
+      background: #2a1a1a;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 0.9rem;
+    }
+
+    /* --- SEO Content Sections --- */
+    .seo-content {
+      max-width: 640px;
+      width: 100%;
+      margin-top: 48px;
+      padding-bottom: 80px; /* space for sticky ad */
+    }
+
+    .seo-content h2 {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      margin-top: 32px;
+    }
+
+    .seo-content h2:first-child {
+      margin-top: 0;
+    }
+
+    .seo-content p {
+      color: #999;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .seo-content ul {
+      color: #999;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .faq-item {
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+    }
+
+    .faq-item h3 {
+      color: #fff;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+
+    .faq-item p {
+      color: #888;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    footer {
+      text-align: center;
+      color: #444;
+      font-size: 0.75rem;
+      margin-top: 40px;
+      padding-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- TOP LEADERBOARD AD -->
+    <div class="ad-container" id="ad-top">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot="TOP_LEADERBOARD_SLOT_ID"
+        data-ad-format="horizontal"
+        data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="container">
+      <header>
+        <h1>Snip<span>Tube</span></h1>
+        <p>Download & trim YouTube videos — free, fast, no signup</p>
+      </header>
+
+      <div class="input-group">
+        <input type="text" id="urlInput" placeholder="Paste YouTube URL here..." aria-label="YouTube video URL" />
+        <button class="btn btn-primary" id="loadBtn">Load</button>
+      </div>
+
+      <div id="errorBox" class="error" style="display:none"></div>
+
+      <div id="infoPanel" class="panel">
+        <div class="player-wrapper">
+          <div id="ytPlayer"></div>
+        </div>
+
+        <div class="video-details">
+          <h3 id="videoTitle"></h3>
+          <p id="videoDuration"></p>
+        </div>
+
+        <!-- IN-CONTENT AD (between video info and controls) -->
+        <div class="ad-container ad-rectangle" id="ad-mid" style="margin: 16px 0;">
+          <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="MID_RECTANGLE_SLOT_ID"
+            data-ad-format="rectangle"></ins>
+        </div>
+
+        <div class="controls">
+          <div class="control-row">
+            <label>Format</label>
+            <div class="format-toggle">
+              <button id="btnMp4" class="active" data-format="mp4">MP4 (Video)</button>
+              <button id="btnMp3" data-format="mp3">MP3 (Audio)</button>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <label>Trim (start - end)</label>
+            <div class="trim-inputs">
+              <input type="text" id="startTime" value="0:00" placeholder="0:00" aria-label="Trim start time" />
+              <span class="separator">to</span>
+              <input type="text" id="endTime" value="0:00" placeholder="0:00" aria-label="Trim end time" />
+            </div>
+            <div class="set-trim-btns">
+              <button class="btn-set" id="setStartBtn">Set start to current</button>
+              <button class="btn-set" id="setEndBtn">Set end to current</button>
+            </div>
+          </div>
+
+          <button class="btn btn-primary download-btn" id="downloadBtn">Download</button>
+        </div>
+      </div>
+
+      <div id="status" class="status">
+        <span class="spinner"></span>
+        <span id="statusText">Processing...</span>
+      </div>
+    </div>
+
+    <!-- BOTTOM AD (after main app) -->
+    <div class="ad-container ad-rectangle" id="ad-bottom" style="margin-top: 24px;">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot="BOTTOM_RECTANGLE_SLOT_ID"
+        data-ad-format="rectangle"
+        data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- SEO CONTENT -->
+    <section class="seo-content">
+      <h2>Free YouTube Video Downloader Online</h2>
+      <p>SnipTube is the fastest free YouTube downloader and converter. Download any YouTube video as MP4 or convert YouTube to MP3 in seconds. No software to install, no account needed — just paste the link and go.</p>
+
+      <h2>How to Download YouTube Videos</h2>
+      <ul>
+        <li><strong>Step 1:</strong> Copy the YouTube video URL from your browser or the YouTube app</li>
+        <li><strong>Step 2:</strong> Paste the URL into SnipTube above</li>
+        <li><strong>Step 3:</strong> Choose MP4 (video) or MP3 (audio only)</li>
+        <li><strong>Step 4:</strong> Optionally set start and end times to trim the video</li>
+        <li><strong>Step 5:</strong> Click Download — your file is ready instantly</li>
+      </ul>
+
+      <h2>YouTube to MP3 Converter</h2>
+      <p>Need just the audio? SnipTube extracts high-quality 192kbps MP3 audio from any YouTube video. Perfect for music, podcasts, lectures, and audiobooks. Our YouTube to MP3 converter works on desktop and mobile browsers.</p>
+
+      <h2>Trim & Cut YouTube Videos</h2>
+      <p>Unlike other YouTube downloaders, SnipTube lets you trim videos before downloading. Set the exact start and end time to download only the part you need. Great for creating clips, saving highlights, or extracting specific segments.</p>
+
+      <!-- IN-CONTENT AD (within SEO text) -->
+      <div class="ad-container ad-rectangle" id="ad-content" style="margin: 24px 0;">
+        <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+          data-ad-slot="CONTENT_RECTANGLE_SLOT_ID"
+          data-ad-format="rectangle"></ins>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>How do I download a YouTube video?</h3>
+        <p>Paste the YouTube video URL into SnipTube, choose MP4 or MP3 format, optionally set trim times, and click Download. Your file will be ready in seconds.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is SnipTube free to use?</h3>
+        <p>Yes, SnipTube is completely free. No signup, no subscription, no hidden fees.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I convert YouTube videos to MP3?</h3>
+        <p>Yes. Select the MP3 format option and SnipTube will extract high-quality 192kbps audio from any YouTube video.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I trim or cut a YouTube video before downloading?</h3>
+        <p>Yes. Use the built-in trim controls to set a start and end time. Only the selected portion will be downloaded.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What video formats are supported?</h3>
+        <p>SnipTube supports MP4 for video downloads and MP3 for audio-only downloads.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Do I need to install any software?</h3>
+        <p>No. SnipTube works entirely in your browser. No downloads, no extensions, no plugins required.</p>
+      </div>
+
+      <footer>
+        <p>&copy; 2026 SnipTube. Free YouTube video downloader and MP3 converter.</p>
+      </footer>
+    </section>
+  </div>
+
+  <!-- DOWNLOAD INTERSTITIAL AD OVERLAY -->
+  <div class="download-overlay" id="downloadOverlay">
+    <div class="overlay-content">
+      <h3>Your download is being prepared...</h3>
+      <p class="countdown" id="overlayCountdown">Please wait <strong id="countdownNum">5</strong> seconds</p>
+      <div class="overlay-ad">
+        <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+          data-ad-slot="OVERLAY_RECTANGLE_SLOT_ID"
+          data-ad-format="rectangle"></ins>
+      </div>
+      <button class="btn-skip" id="skipOverlayBtn" disabled>Wait...</button>
+    </div>
+  </div>
+
+  <!-- STICKY BOTTOM AD (mobile) -->
+  <div class="ad-container ad-sticky-bottom" id="ad-sticky">
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+      data-ad-slot="STICKY_BOTTOM_SLOT_ID"
+      data-ad-format="horizontal"
+      data-full-width-responsive="true"></ins>
+  </div>
+
+  <script>
+    // Initialize all ad slots
+    document.querySelectorAll('.adsbygoogle').forEach(() => {
+      try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+    });
+  </script>
+
+  <script>
+    // Load YouTube IFrame API
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+
+    let ytPlayer = null;
+    let ytReady = false;
+
+    window.onYouTubeIframeAPIReady = () => { ytReady = true; };
+
+    const urlInput = document.getElementById('urlInput');
+    const loadBtn = document.getElementById('loadBtn');
+    const infoPanel = document.getElementById('infoPanel');
+    const videoTitle = document.getElementById('videoTitle');
+    const videoDuration = document.getElementById('videoDuration');
+    const startTime = document.getElementById('startTime');
+    const endTime = document.getElementById('endTime');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const btnMp3 = document.getElementById('btnMp3');
+    const btnMp4 = document.getElementById('btnMp4');
+    const setStartBtn = document.getElementById('setStartBtn');
+    const setEndBtn = document.getElementById('setEndBtn');
+    const status = document.getElementById('status');
+    const statusText = document.getElementById('statusText');
+    const errorBox = document.getElementById('errorBox');
+    const downloadOverlay = document.getElementById('downloadOverlay');
+    const skipOverlayBtn = document.getElementById('skipOverlayBtn');
+    const countdownNum = document.getElementById('countdownNum');
+
+    let currentFormat = 'mp4';
+    let videoDurationSec = 0;
+
+    function secondsToTime(sec) {
+      sec = Math.floor(sec);
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${m}:${String(s).padStart(2, '0')}`;
+    }
+
+    function timeToSeconds(str) {
+      const parts = str.split(':').map(Number);
+      if (parts.length === 2) return parts[0] * 60 + parts[1];
+      if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+      return 0;
+    }
+
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.style.display = 'block';
+      setTimeout(() => (errorBox.style.display = 'none'), 5000);
+    }
+
+    function loadPlayer(videoId) {
+      if (ytPlayer) {
+        ytPlayer.loadVideoById(videoId);
+        ytPlayer.pauseVideo();
+      } else {
+        ytPlayer = new YT.Player('ytPlayer', {
+          videoId: videoId,
+          playerVars: { rel: 0, modestbranding: 1 },
+          events: {
+            onReady: (e) => e.target.pauseVideo(),
+          },
+        });
+      }
+    }
+
+    // Show interstitial ad overlay, then resolve after countdown
+    function showDownloadOverlay() {
+      return new Promise((resolve) => {
+        downloadOverlay.classList.add('visible');
+        skipOverlayBtn.disabled = true;
+        let count = 5;
+        countdownNum.textContent = count;
+        skipOverlayBtn.textContent = `Wait ${count}s...`;
+
+        const interval = setInterval(() => {
+          count--;
+          countdownNum.textContent = count;
+          skipOverlayBtn.textContent = `Wait ${count}s...`;
+          if (count <= 0) {
+            clearInterval(interval);
+            skipOverlayBtn.disabled = false;
+            skipOverlayBtn.textContent = 'Continue to Download';
+          }
+        }, 1000);
+
+        skipOverlayBtn.onclick = () => {
+          downloadOverlay.classList.remove('visible');
+          resolve();
+        };
+      });
+    }
+
+    // Set start/end from player current time
+    setStartBtn.addEventListener('click', () => {
+      if (ytPlayer && ytPlayer.getCurrentTime) {
+        startTime.value = secondsToTime(ytPlayer.getCurrentTime());
+      }
+    });
+
+    setEndBtn.addEventListener('click', () => {
+      if (ytPlayer && ytPlayer.getCurrentTime) {
+        endTime.value = secondsToTime(ytPlayer.getCurrentTime());
+      }
+    });
+
+    // Format toggle
+    [btnMp3, btnMp4].forEach((btn) => {
+      btn.addEventListener('click', () => {
+        btnMp3.classList.toggle('active', btn === btnMp3);
+        btnMp4.classList.toggle('active', btn === btnMp4);
+        currentFormat = btn.dataset.format;
+      });
+    });
+
+    // Load video info
+    loadBtn.addEventListener('click', async () => {
+      const url = urlInput.value.trim();
+      if (!url) return showError('Please enter a YouTube URL');
+
+      loadBtn.disabled = true;
+      loadBtn.textContent = '...';
+      infoPanel.classList.remove('visible');
+      errorBox.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/info', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+
+        videoTitle.textContent = data.title;
+        videoDurationSec = data.duration;
+        videoDuration.textContent = secondsToTime(data.duration);
+        startTime.value = '0:00';
+        endTime.value = secondsToTime(data.duration);
+        infoPanel.classList.add('visible');
+
+        // Load embedded player
+        if (ytReady) {
+          loadPlayer(data.videoId);
+        } else {
+          window.onYouTubeIframeAPIReady = () => { ytReady = true; loadPlayer(data.videoId); };
+        }
+      } catch (err) {
+        showError(err.message);
+      } finally {
+        loadBtn.disabled = false;
+        loadBtn.textContent = 'Load';
+      }
+    });
+
+    // Allow Enter key to load
+    urlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') loadBtn.click();
+    });
+
+    // Download (with interstitial ad)
+    downloadBtn.addEventListener('click', async () => {
+      const url = urlInput.value.trim();
+      const start = timeToSeconds(startTime.value);
+      const end = timeToSeconds(endTime.value);
+
+      if (start >= end) return showError('Start time must be before end time');
+
+      // Show interstitial ad before download
+      await showDownloadOverlay();
+
+      downloadBtn.disabled = true;
+      status.classList.add('visible');
+      statusText.textContent = 'Downloading and processing...';
+
+      try {
+        const res = await fetch('/api/download', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            url,
+            format: currentFormat,
+            startTime: start,
+            endTime: end,
+          }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error);
+        }
+
+        // Get filename from Content-Disposition header
+        const disposition = res.headers.get('Content-Disposition');
+        let filename = `download.${currentFormat}`;
+        if (disposition) {
+          const match = disposition.match(/filename="?(.+?)"?$/);
+          if (match) filename = match[1];
+        }
+
+        const blob = await res.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(a.href);
+      } catch (err) {
+        showError(err.message);
+      } finally {
+        downloadBtn.disabled = false;
+        status.classList.remove('visible');
+      }
+    });
+  </script>
+</body>
+</html>
